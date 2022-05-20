@@ -1,5 +1,5 @@
 {
-  "name": "dev-demands",
+  "name": "@dev-demands/server",
   "version": "1.0.0",
   "private": true,
   "main": "src/main.js",

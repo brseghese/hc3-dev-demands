@@ -1,13 +1,11 @@
 {
-  "name": "@dev-demands/server",
+  "name": "@dev-demands/root",
   "version": "1.0.0",
-  "private": true,
-  "main": "src/main.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node -r esm ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "esm": "^3.2.25"
-  }
+  "author": "",
+  "license": "MIT"
 }

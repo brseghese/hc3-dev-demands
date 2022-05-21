@@ -1,4 +1,4 @@
-# Dev Demands
+# Dev Demands 👨‍💻​
 
 ## VTEX - Hiring Coders #3 🚀
 
@@ -17,25 +17,23 @@ O projeto irá controlar as demandas de um programador:
 
 ---
 
-### 🛠️ Desenvolvendo o Projeto
+### 🛠️ Preparando o Ambiente
 
 Este projeto tem com base o Projeto Exemplo Cliente / Servidor que foi desenvolvido em um único pacote.
-
-Passo a passo:
 
 #### ✔️​ Monorepositório
 
 Transformando o projeto em um "Monorepo" (mais de um pacote).
 
-#### ✔️​ Preparando o ambiente
-
-Organizando as pastas:
+#### ✔️​ Organizando as Pastas
 
 - packages
   - web
     - htmls
   - server
     - src
+
+#### ✔️​ Instalando os Pacotes
 
 Deletando o "package-lock.json" porque vamos usar um lock-file sem ser o do npm, iremos usar o do pnpm.
 
@@ -79,7 +77,7 @@ pnpm i --filter @dev-demands/server
 
 O pacote instalado gera o node_modules na pasta server e um pnpm-lock.yaml, com isso podemos rodar o server através do root.
 
-Executando o server:
+#### ✔️​ Executando o Servidor
 
 ```
 pnpm --filter @dev-demands/server run start
@@ -150,3 +148,29 @@ Executando:
 ```
 pnpm --filter @dev-demands/server run start
 ```
+
+O express já abstrai muito mais coisas do servidor, é muito mais prático trabalhar com ele.
+
+---
+
+### ⏰​ Requisições Assíncronas
+
+#### ✔️ Implementando o front / client
+
+O proxímo passo é implementar o front/client que irá fazer o authenticate.
+
+Rodando o server na porta 8000 e o client/web na porta 3000.
+
+Tratando a requisição para o authenticate com `fetch`.
+
+#### ✔️ Resolvendo CORS
+
+Para resolver precisamos configurar o server para lidar com as requisições, lidar com os cabeçalhos específicos que os Browsers pedem para validar se os métodos são válidos e se o host (origin) que estamos usando para fazer as requisições são válidas.
+
+Para resolver precisamos instalar a biblioteca "cors" no nosso backend, digitando:
+
+```
+pnpm i cors --filter @dev-demands/server
+```
+
+CORS resolvido com sucesso!

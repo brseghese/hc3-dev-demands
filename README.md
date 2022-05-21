@@ -72,5 +72,63 @@ pnpm i --filter @dev-demands/server
 O pacote instalado gera o node_modules na pasta server e um pnpm-lock.yaml, com isso podemos rodar o server através do root.
 
 ```
-pnpm run start --filter @dev-demands/server
+pnpm --filter @dev-demands/server run start
+```
+
+Servidor conectado com sucesso!
+
+Retirando as referências de view no arquivo "main.js":
+
+1. Remover o switch case sign-in inteiro
+2. Remorver switch case home inteiro
+3. Remover somente o 301 em switch case authenticate
+4. Remover módulo "fs"
+5. Remover módulo "path"
+
+### Inciando um pacote React
+
+No terminal digitar:
+
+```
+pnpx create-react-app packages/web
+```
+
+O pnpx vem instalado junto com o pnpm e executa uma função externa.
+
+O packages/web é o caminho para instalação do pacote.
+
+Remover na pasta "web" o "package-lock.json, pois vamos gerenciar pelo pnpm.
+
+Renomear o nome do pacote para @dev-demands/web no "package.json" na pasta "web".
+
+Remover os test na pasta "web".
+
+Remover os .css e .svg na pasta "web".
+
+Digitar no terminal:
+
+```
+pnpm i --filter @dev-demands/web
+```
+
+### Instalando o React-Router-Dom
+
+No terminal digitar:
+
+```
+pnpm i react-router-dom --filter @dev-demands/web
+```
+
+Configurando o App.js.
+
+Configurando o "index.js".
+
+Criando o arquivo "Router.js".
+
+Criando e configurando os arquivos "Home.js" e "Signin.js".
+
+### Rodando a aplicação
+
+```
+pnpm --filter @dev-demands/web run start
 ```

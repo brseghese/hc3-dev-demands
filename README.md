@@ -1,4 +1,4 @@
-# Dev Demands 👨‍💻​
+<h1 id="topo"> Dev Demands 👨‍💻​ </h1>
 
 ## VTEX - Hiring Coders #3 🚀
 
@@ -6,7 +6,17 @@
 
 Projeto desenvolvido para exercitar os conceitos dados no curso de GraphQL.
 
-Este projeto está vinculado ao repositório **Principal** do Programa HC#3 - [clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessá-lo.
+Este projeto é a continuação do curso de GraphaQL e está vinculado ao repositório **Principal** do Programa HC#3 - [clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessá-lo.
+
+<details>
+<summary>Clique para Navegar 🔽</summary>
+
+◽ <a href="#1">Preparando o Ambiente</a> <br>
+◽ <a href="#2">Requisições Assíncronas</a> <br>
+◽ <a href="#3">APIs RESTful</a> <br>
+◽ <a href="#4">Apollo Server</a> <br>
+
+</details>
 
 ### 📍 Sobre
 
@@ -17,7 +27,7 @@ O projeto irá controlar as demandas de um programador:
 
 ---
 
-### 🛠️ Preparando o Ambiente
+<h3 id="1"> 🛠️ Preparando o Ambiente</h3>
 
 Este projeto tem com base o Projeto Exemplo Cliente / Servidor que foi desenvolvido em um único pacote.
 
@@ -151,9 +161,11 @@ pnpm --filter @dev-demands/server run start
 
 O express já abstrai muito mais coisas do servidor, é muito mais prático trabalhar com ele.
 
+<a href="#topo">🔝</a>
+
 ---
 
-### ⏰​ Requisições Assíncronas
+<h3 id="2"> ⏰​ Requisições Assíncronas</h3>
 
 #### ✔️ Implementando o front / client
 
@@ -174,3 +186,61 @@ pnpm i cors --filter @dev-demands/server
 ```
 
 CORS resolvido com sucesso!
+
+<a href="#topo">🔝</a>
+
+---
+
+<h3 id="3"> ⚙️ APIs RESTful </h3>
+
+Como vamos falar de GraphQL é importante falar de RESTful que é o cara que vem antes dele.
+
+#### ✔️ Como funciona o RESTful?
+
+- Recebe parâmetros e envia dados usando `JSON` como formato
+- Todas as operações são abstraídas dentro dos métodos HTTP (GET, POST, PUT, PATCH, DELETE e OPTIONS)
+  - GET - para buscar dados
+  - POST - para criar novas instâncias de dados
+  - PUT - para alterar o dado todo
+  - PATCH - para alterar determinado atributo do dado
+  - DELETE - para remover uma entidade
+  - OPTIONS - utilizado pelo Browser para checar opções dentro de um server
+- As rotas, ou endpoints, são baseados nas entidades das aplicações.
+  - Ex: /users/:userID
+
+Endpoints / Rotas - cada entidade (abstração da regra de negócio / domínios estruturados na aplicação) será um Endpoint diferente. Ex: Endpoint de Usuário, de Empresa, de Pagamento, etc...
+
+Exemplos de requisição RESTful
+
+```
+POST /users
+{
+  "name": "Bruno Cecilio Seghese",
+  ...
+}
+
+PATCH /users/1
+{
+  "name": "Bruno Seghese",
+}
+```
+
+#### ⚠️ Problemas
+
+APIs RESTful são limitadas pelos protocolos que a definem, pois não é possível lidar com as relações entre as entidades sendo necessária a implementação manual deles.
+
+Essas limitações resultam 3 situações que o GraphQL se propõe a resolver:
+
+- Cascata de Requisições - Request Waterfall
+- Dados insuficientes nas APIs - Under-Fetching
+- Dados mais que suficientes nas APIs - Over-Fetching
+
+Resumindo os protocolos Http são protocolos de mensagens e não de regras de negócio.
+
+<a href="#topo">🔝</a>
+
+---
+
+<h3 id="4">🛰️ Apollo Server </h3>
+
+[![image](https://img.shields.io/badge/Apollo%20GraphQL-311C87?&style=for-the-badge&logo=Apollo%20GraphQL&logoColor=white)](https://www.apollographql.com/)

@@ -1,27 +1,35 @@
-<h1 id="topo">Projeto Dev Demands - GraphQL <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" width="30px"/></h1>
+# Dev Demands
 
-Esse projeto está vinculado ao repositório **Principal** do Programa HC#3 - [clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessá-lo.
+## VTEX - Hiring Coders #3 🚀
 
----
+### 📌 Módulo GraphQL
 
-[![image](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)](https://graphql.org/)
+Projeto desenvolvido para exercitar os conceitos dados no curso de GraphQL.
 
-### ​🚀 Iniciando o Projeto - Dev Demands
+Este projeto está vinculado ao repositório **Principal** do Programa HC#3 - [clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessá-lo.
 
-Requisições Assíncronas
-
-### 📌 Sobre
+### 📍 Sobre
 
 O projeto irá controlar as demandas de um programador:
 
 - Ver as próximas demandas
 - Ver os horários
 
+---
+
+### 🛠️ Desenvolvendo o Projeto
+
 Este projeto tem com base o Projeto Exemplo Cliente / Servidor que foi desenvolvido em um único pacote.
+
+Passo a passo:
+
+#### ✔️​ Monorepositório
 
 Transformando o projeto em um "Monorepo" (mais de um pacote).
 
-### Organizando as pastas
+#### ✔️​ Preparando o ambiente
+
+Organizando as pastas:
 
 - packages
   - web
@@ -29,25 +37,25 @@ Transformando o projeto em um "Monorepo" (mais de um pacote).
   - server
     - src
 
-Deletar o "package-lock.json" porque vamos usar um lock file sem ser o npm, vamos usar o pnpm.
+Deletando o "package-lock.json" porque vamos usar um lock-file sem ser o do npm, iremos usar o do pnpm.
 
-Deletar o "node_modules" porque vamos gerar ele novamente com pnpm.
+Deletando o "node_modules" porque vamos gerar ele novamente com o pnpm.
 
 O pnpm é um package manager também e a única diferença é que coseguimos controlar melhor em monorepositórios.
 
-Instalando o pnpm, caso não esteja instalado, digitando:
+Instalando o pnpm:
 
 ```
 npm i -g pnpm
 ```
 
-Inicializando com o pnpm:
+Inicializando o pnpm:
 
 ```
 pnpm init
 ```
 
-Trocamos o nome do pacote por @dev-demands/root.
+Nomeando o pacote como @dev-demands/root.
 
 O @ é para indicar um scopo de pacote, ou seja, @dev-demands será todos os pacotes que teremos.
 
@@ -55,15 +63,15 @@ O root indica o domínio raiz.
 
 Não iremos publicar, mas ele terá esse domínio.
 
-Em liçença colocamos "MIT".
+Definindo a liçença como "MIT".
 
-Em "packages" criamos um arquivo "pnpm-workspaces.yaml" que conterá somente a indicação de onde ficam nossos pacotes do monorepositório.
+Criando um arquivo "pnpm-workspaces.yaml" que contém somente a indicação de onde ficam nossos pacotes do monorepositório.
 
-O "yaml" é similar ao json, mais simples de escrever e específico para arquivo de configuração.
+O "yaml" é similar ao json, porém mais simples de escrever e específico para arquivo de configuração.
 
-Alteramos o nome do pacote no "package.json" que está na pasta "server" para @dev-demands/server.
+Alterando o nome do pacote no "package.json" para @dev-demands/server.
 
-Instalamos o pnpm:
+Instalando o pnpm:
 
 ```
 pnpm i --filter @dev-demands/server
@@ -71,23 +79,19 @@ pnpm i --filter @dev-demands/server
 
 O pacote instalado gera o node_modules na pasta server e um pnpm-lock.yaml, com isso podemos rodar o server através do root.
 
+Executando o server:
+
 ```
 pnpm --filter @dev-demands/server run start
 ```
 
 Servidor conectado com sucesso!
 
-Retirando as referências de view no arquivo "main.js":
+#### ✔️ Acoplando View e Server
 
-1. Remover o switch case sign-in inteiro
-2. Remorver switch case home inteiro
-3. Remover somente o 301 em switch case authenticate
-4. Remover módulo "fs"
-5. Remover módulo "path"
+Retirando as referências de view no arquivo "main.js".
 
-### Inciando um pacote React
-
-No terminal digitar:
+#### ✔️ Inciando um pacote React
 
 ```
 pnpx create-react-app packages/web
@@ -95,40 +99,54 @@ pnpx create-react-app packages/web
 
 O pnpx vem instalado junto com o pnpm e executa uma função externa.
 
-O packages/web é o caminho para instalação do pacote.
+Removendo o "package-lock.json, pois vamos gerenciar pelo pnpm.
 
-Remover na pasta "web" o "package-lock.json, pois vamos gerenciar pelo pnpm.
+Renomeando o nome do pacote para @dev-demands/web no "package.json".
 
-Renomear o nome do pacote para @dev-demands/web no "package.json" na pasta "web".
+Removendo os test na pasta "web".
 
-Remover os test na pasta "web".
+Removendo os .css e .svg na pasta "web".
 
-Remover os .css e .svg na pasta "web".
-
-Digitar no terminal:
+Instalando o pnpm:
 
 ```
 pnpm i --filter @dev-demands/web
 ```
 
-### Instalando o React-Router-Dom
-
-No terminal digitar:
+#### ✔️ Instalando o React-Router-Dom
 
 ```
 pnpm i react-router-dom --filter @dev-demands/web
 ```
 
-Configurando o App.js.
+Codificando o App.js.
 
-Configurando o "index.js".
+Codificando o "index.js".
 
-Criando o arquivo "Router.js".
+Criando o arquivo "routes.js".
 
-Criando e configurando os arquivos "Home.js" e "Signin.js".
+Codificando os arquivos "Home.js" e "Signin.js".
 
-### Rodando a aplicação
+#### ✔️ Executando a aplicação
 
 ```
 pnpm --filter @dev-demands/web run start
+```
+
+#### ✔️ Instalando o Express
+
+```
+pnpm i express --filter @dev-demands/server
+```
+
+O Express é uma biblioteca para facilitar as requisições com as APIs.
+
+Até então não estávamos tratando os métodos HTTP das requests, somente olhando as URLs.
+
+Codificando o express no "main.js" e deixando a API pronta.
+
+Executando:
+
+```
+pnpm --filter @dev-demands/server run start
 ```

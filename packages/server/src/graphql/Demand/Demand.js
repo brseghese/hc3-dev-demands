@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
-  type Demand {
+  type Demand implements Node {
     id: ID!
     name: String!
     client: Client!

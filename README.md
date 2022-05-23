@@ -26,6 +26,7 @@ O projeto irá controlar as demandas de um programador:
 - <a href="#8">Apollo Server</a>
 - <a href="#9">Entendendo o GraphQL</a>
 - <a href="#10">Estruturando os TypeDefs e Resolvers</a>
+- <a href="#11">Introdução a GraphQL Query</a>
 
 </details>
 
@@ -338,82 +339,21 @@ Na API que estamos executando colocando `/graphql` na URL, uma página com toda 
 
 Um boa maneira de manter a estrutura grapho é separando em camadas / pastas e definindo cada entidade em pasta e arquivo com seus respectivos typeDefs e Resolvers, podendo assim escalar de forma estruturada.
 
-Nesse projeto vamos criar uma pasta graphql e nela uma pasta "Demand" e "Client".
-
-Em "Client" crimaos um client.js e em "Demand" um demand.js.
-
-Em client.js:
-
-```
-import { gql } from "apollo-server-express";
-
-export const typeDefs = gql`
-  type Client {
-    id: ID!
-    name: String!
-    email: String!
-    disabled: Boolean!
-  }
-`;
-
-export const resolvers = {
-  Query: {
-    demands: () => [],
-  },
-};
-```
-
-A **exclamação** na frente do tipo define como campo obrigatório.
-
-Há dois tipos de exportação:
+#### ✔️ Importando e Exportando Módulos e Funções
 
 Exportações Explícitas (Named Exports) (Zero ou mais exports por módulo).
 
 Exportações Padrão (Default Exports) (Uma por módulo).
 
-Usaremos Named Exports em typeDefs e resolvers e quando for importar, importaremos eles desse módulo.
+Usaremos Named Exports em typeDefs e resolvers.
 
-Faremos o mesmo para demand.js:
+#### ✔️ typeDefs e resolvers (globais) & type query (extend)
 
-```
-import { gql } from "apollo-server-express";
+Para fazermos a união dos typeDefs e resolvers criamos os arquivos "typeDefs.js" e "resolvers.js".
 
-export const typeDefs = gql`
-  type Demand {
-    id: ID!
-    name: String!
-    client: Client!
-    deadline: String
-  }
+O `extend` permite extender o `type query` e adicionar outras queries com facilidade.
 
-  extend type Query {
-    demands: [Demand]!
-  }
-`;
-
-export const resolvers = {
-  Query: {
-    demands: () => [],
-  },
-};
-```
-
-O **extend** permite extender o tipo query e adicionar outras query com facilidade.
-
-Por enquanto estamos retornando um lista vazia no resolvers.
-
-Agora precisamos fazer uma junção do client, então criamos na pasta graphql um arquivo typeDefs.js e importamos os typeDefs de client.js e de demand.js.
-
-Como estamos importando duas constantes iguais precisamos fazer um rename:
-
-```
-import { typeDefs as clientTypeDefs } from "./Client/Client";
-import { typeDefs as demandTypeDefs } from "./Demand/Demand";
-```
-
-E aqui vamos contruir um novo typeDefs que será o **typeDefs global**
-
-Como vimos, o typeDefs do demand usa um extend para extender o type query, e para isso temos que implementar um type query (pai).
+O type query global não pode ser vazio, então implementamos ele com um \_root: String.
 
 ```
 const typeDefs = gql`
@@ -423,9 +363,7 @@ const typeDefs = gql`
 `;
 ```
 
-O type query (pai) não pode ser vazio então implementamos ele com um \_root: String.
-
-A ordem é obrigátoria pois o extend só dará certo se o pai já estiver implementado e na sequência podemos fazer a concatenação dos typeDefs de client.js e demands.js pois já importamos eles.
+A ordem é obrigátoria, para o extend funcionar o extend global deve estar implementado.
 
 ```
 const typeDefs = gql`
@@ -438,15 +376,9 @@ const typeDefs = gql`
 `;
 ```
 
-O typeDefs é exportado com default.
+#### ✔️ Shorthand e Rename
 
-```
-export default typeDefs;
-```
-
-Depois de implementado o typeDefs.js, podemos importar (como default) para main.js.
-
-Como a propriedade e a constante tem o mesmo nome, podemos usar uma shorthand (propriedade abreviadas) do JavaScript.
+Quando a propriedade e a constante tem o mesmo nome, podemos usar uma shorthand (propriedade abreviadas) do JavaScript.
 
 ```
 import typeDefs from "./graphql/typeDefs";
@@ -456,7 +388,14 @@ const server = new ApolloServer({
 });
 ```
 
-O resolvers segue a mesma lógica do typeDefs.
+Quando importamos duas constantes iguais precisamos fazer um rename.
+
+```
+import { typeDefs as clientTypeDefs } from "./Client/Client";
+import { typeDefs as demandTypeDefs } from "./Demand/Demand";
+```
+
+#### ✔️ Ajustando Server
 
 Precisamos configura o body parse nos Middleware do nosso server, porque antes tínhamos o express.json() e agora se mandarmos um json para o server ele não irá interpretar.
 
@@ -472,4 +411,55 @@ server.applyMiddleware({
 });
 ```
 
-Concluindo, conseguimos criar um server GraphQL e modularizar nossos typeDefs, resolvers e uma query.
+<a href="#topo">🔝</a>
+
+---
+
+<h3 id="11">🔎 Introdução a GraphQL Query</h3>
+
+As Query são uma das três principais operações em GraphQL sendo a forma de um client se comunicar com um server GraphQl e obter dados.
+
+O GraphQL não diz respeito a banco de dados, ele é a camada de ligação entre o front e o back.
+
+#### ✔️ Criando GraphQL Queries
+
+Primeiro vamos gerar dados fakes no site [mockaroo](https://www.mockaroo.com/) para consumir esses dados.
+
+Inserimos os dados fakes em um arquivo "client.json".
+
+Criando "server/io/Database/createRepository.js"...
+
+#### ✔️ Executando Primeira GraphQL Query
+
+http://127.0.0.1:8000/graphql
+
+Buscando um cliente pelo id:
+
+```
+query GET_CLIENT($clientID: ID!) {
+  client(id: $clientID) {
+    id
+    name
+    email
+    disabled
+  }
+}
+```
+
+Query Variables
+
+```
+{
+  "clientID": "10b34d77-a60d-4916-8303-964f1e1261a4"
+}
+```
+
+Listando os clientes por nome:
+
+```
+query GET_CLIENTS {
+  clients {
+    name
+  }
+}
+```

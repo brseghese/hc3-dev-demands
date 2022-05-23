@@ -15,6 +15,7 @@ server.applyMiddleware({
   cors: {
     origin: "http://localhost:3000",
   },
+  bodyParserConfig: true,
 });
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8000;

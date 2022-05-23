@@ -1,41 +1,41 @@
 <h1 id="topo">Dev Demands 👨‍💻​</h1>
 
-Projeto desenvolvido para exercitar os conceitos dados no curso de GraphQL.
+Este projeto faz parte da continuação do curso de GraphQL.
 
-Este projeto é a continuação do curso de GraphaQL e está vinculado ao repositório **Principal** do Programa HC#3 - [clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessá-lo.
-
-<details>
-<summary>Clique para Navegar 🔽</summary>
-
-◽ <a href="#1">Preparando o Ambiente</a> <br>
-◽ <a href="#2">Instalando os Pacotes</a> <br>
-◽ <a href="#3">Preparando o Server</a> <br>
-◽ <a href="#4">Preparando o Client</a> <br>
-◽ <a href="#5">Instalando o Express</a> <br>
-◽ <a href="#6">Requisições Assíncronas</a> <br>
-◽ <a href="#7">APIs RESTful</a> <br>
-◽ <a href="#8">Apollo Server</a> <br>
-◽ <a href="#9">Entendendo o GraphQL</a> <br>
-◽ <a href="#10">Estruturando os TypeDefs e Resolvers</a> <br>
-
-</details>
+[Clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessar o repositório com a introdução do curso onde foi desenvolvido um exemplo de cliente / servidor que é a base deste projeto.
 
 ### 📍 Sobre
 
 O projeto irá controlar as demandas de um programador:
 
-- Ver as próximas demandas
-- Ver os horários
+- Criar demandas
+- Criar clientes
+- Ver demandas
+- Ver clientes
+
+<details>
+<summary>Clique para Navegar 🔽</summary>
+
+- <a href="#1">Preparando o Ambiente</a>
+- <a href="#2">Instalando os Pacotes</a>
+- <a href="#3">Preparando o Server</a>
+- <a href="#4">Preparando o Client</a>
+- <a href="#5">Instalando o Express</a>
+- <a href="#6">Requisições Assíncronas</a>
+- <a href="#7">APIs RESTful</a>
+- <a href="#8">Apollo Server</a>
+- <a href="#9">Entendendo o GraphQL</a>
+- <a href="#10">Estruturando os TypeDefs e Resolvers</a>
+
+</details>
 
 ---
 
 <h3 id="1">🛠️ Preparando o Ambiente</h3>
 
-Este projeto tem com base o Projeto Exemplo Cliente / Servidor que foi desenvolvido em um único pacote.
+O projeto base - exemplo de cliente / servidor - foi desenvolvido em um único pacote.
 
-#### ✔️​ Monorepositório
-
-Transformando o projeto em um "Monorepo" (mais de um pacote).
+Iremos transformar o projeto em um **Monorepo** (mais de um pacote).
 
 Organizando as Pastas
 
@@ -335,3 +335,141 @@ Na API que estamos executando colocando `/graphql` na URL, uma página com toda 
 ---
 
 <h3 id="10">📁 Estruturando os TypeDefs e Resolvers</h3>
+
+Um boa maneira de manter a estrutura grapho é separando em camadas / pastas e definindo cada entidade em pasta e arquivo com seus respectivos typeDefs e Resolvers, podendo assim escalar de forma estruturada.
+
+Nesse projeto vamos criar uma pasta graphql e nela uma pasta "Demand" e "Client".
+
+Em "Client" crimaos um client.js e em "Demand" um demand.js.
+
+Em client.js:
+
+```
+import { gql } from "apollo-server-express";
+
+export const typeDefs = gql`
+  type Client {
+    id: ID!
+    name: String!
+    email: String!
+    disabled: Boolean!
+  }
+`;
+
+export const resolvers = {
+  Query: {
+    demands: () => [],
+  },
+};
+```
+
+A **exclamação** na frente do tipo define como campo obrigatório.
+
+Há dois tipos de exportação:
+
+Exportações Explícitas (Named Exports) (Zero ou mais exports por módulo).
+
+Exportações Padrão (Default Exports) (Uma por módulo).
+
+Usaremos Named Exports em typeDefs e resolvers e quando for importar, importaremos eles desse módulo.
+
+Faremos o mesmo para demand.js:
+
+```
+import { gql } from "apollo-server-express";
+
+export const typeDefs = gql`
+  type Demand {
+    id: ID!
+    name: String!
+    client: Client!
+    deadline: String
+  }
+
+  extend type Query {
+    demands: [Demand]!
+  }
+`;
+
+export const resolvers = {
+  Query: {
+    demands: () => [],
+  },
+};
+```
+
+O **extend** permite extender o tipo query e adicionar outras query com facilidade.
+
+Por enquanto estamos retornando um lista vazia no resolvers.
+
+Agora precisamos fazer uma junção do client, então criamos na pasta graphql um arquivo typeDefs.js e importamos os typeDefs de client.js e de demand.js.
+
+Como estamos importando duas constantes iguais precisamos fazer um rename:
+
+```
+import { typeDefs as clientTypeDefs } from "./Client/Client";
+import { typeDefs as demandTypeDefs } from "./Demand/Demand";
+```
+
+E aqui vamos contruir um novo typeDefs que será o **typeDefs global**
+
+Como vimos, o typeDefs do demand usa um extend para extender o type query, e para isso temos que implementar um type query (pai).
+
+```
+const typeDefs = gql`
+  type Query {
+    _root: String
+  }
+`;
+```
+
+O type query (pai) não pode ser vazio então implementamos ele com um \_root: String.
+
+A ordem é obrigátoria pois o extend só dará certo se o pai já estiver implementado e na sequência podemos fazer a concatenação dos typeDefs de client.js e demands.js pois já importamos eles.
+
+```
+const typeDefs = gql`
+  type Query {
+    _root: String
+  }
+
+  ${clientTypeDefs}
+  ${demandTypeDefs}
+`;
+```
+
+O typeDefs é exportado com default.
+
+```
+export default typeDefs;
+```
+
+Depois de implementado o typeDefs.js, podemos importar (como default) para main.js.
+
+Como a propriedade e a constante tem o mesmo nome, podemos usar uma shorthand (propriedade abreviadas) do JavaScript.
+
+```
+import typeDefs from "./graphql/typeDefs";
+
+const server = new ApolloServer({
+  typeDefs,
+});
+```
+
+O resolvers segue a mesma lógica do typeDefs.
+
+Precisamos configura o body parse nos Middleware do nosso server, porque antes tínhamos o express.json() e agora se mandarmos um json para o server ele não irá interpretar.
+
+Então passamos um bodyParseConfig: true
+
+```
+server.applyMiddleware({
+  app,
+  cors: {
+    origin: "http://localhost:3000",
+  },
+  bodyParserConfig: true,
+});
+```
+
+Concluindo, conseguimos criar um server GraphQL e modularizar nossos typeDefs, resolvers e uma query.

@@ -424,7 +424,7 @@ Inserindo os dados fakes em um arquivo "client.json".
 
 Criando "server/io/Database/createRepository.js" e desenvolvendo a ligação entre o arquivo JSON e o GraphQL.
 
-#### ✔️ Fazendo as Consultas
+#### ✔️ Consultando Clientes no PlayGround
 
 Buscando um cliente pelo id:
 
@@ -447,14 +447,13 @@ query GET_CLIENT($clientID: ID!) {
 }
 ```
 
-Total de clientes e listando os clientes:
-
 ```
 query GET_CLIENTS {
   clients {
     totalItems
     items {
       name
+      email
     }
   }
 }
@@ -512,16 +511,52 @@ Para gerar o id vamos utilizar uma biblioteca chamada "uuid".
 pnpm i uuid --filter @dev-demands/server
 ```
 
-Implementado a mutation no "client.js" e "resolvers.js".
+Implementado a mutation no "client.js" e "resolvers.js" para inserir clientes.
 
-#### ✔️ Inserindo Cliente
+#### ✔️ Inserindo Cliente no PlayGround
 
 ```
-mutation {
+mutation CREATE_CLIENT {
   createClient(input:{
     name: "Bruno Seghese",
     email: "brsegh@gmail.com"
   }) {
+    id
+    name
+    email
+    disabled
+  }
+}
+```
+
+Implementado a mutation no "client.js" e "resolvers.js" para alterar clientes.
+
+#### ✔️ Alterando Cliente no PlayGround
+
+```
+mutation UPDATE_CLIENT {
+  updateClient(
+    input: {
+      id: "e0b6e391-9191-469a-9322-b0491191870c"
+      name: "Eduardo Seghese"
+      email: "dudu@gmail.com"
+    }
+  ) {
+    id
+    name
+    email
+    disabled
+  }
+}
+```
+
+Implementado a mutation no "client.js" e "resolvers.js" para deletar clientes.
+
+#### ✔️ Deletando Cliente no PlayGround
+
+```
+mutation DELETE_CLIENT {
+  deleteClient(id: "4a2a2588-f67b-42ac-aa48-39d7b37fae96") {
     id
     name
     email

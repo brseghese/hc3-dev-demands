@@ -13,6 +13,30 @@ O projeto irá controlar as demandas de um programador:
 - Ver demandas
 - Ver clientes
 
+<h3 id="">📁 Acessar Projeto</h3>
+
+◽ <a href="https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands/tree/main">Acessar</a>🔗 o código fonte pelo GitHub. <br>
+◽ <a href="https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands/archive/refs/heads/main.zip">Download</a>🔗 do código fonte no formato zip.<br>
+◽ Clonar o repositório ultilizando Git Bash + o comando:
+
+       $ git clone https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands.git
+
+<h3 id="">🛠️ Instalação</h3>
+
+Após clonar ou fazer o download do projeto digitar no terminal:
+
+```
+pnpm i --filter @dev-demands/server
+```
+
+```
+pnpm i --filter @dev-demands/web
+```
+
+Instruções para executar o projeto [clique aqui](#✔️-testando-o-projeto)🔗
+
+---
+
 <details>
 <summary>Clique para Navegar 🔽</summary>
 
@@ -29,12 +53,13 @@ O projeto irá controlar as demandas de um programador:
 - <a href="#11">GraphQL Query</a>
 - <a href="#12">GraphQL Mutation</a>
 - <a href="#13">Apollo Link / Client / Devtools</a>
+- <a href="#13">Hook - useQuery - Paginação</a>
 
 </details>
 
 ---
 
-<h3 id="1">🛠️ Preparando o Ambiente</h3>
+<h3 id="1">🚀 Preparando o Ambiente</h3>
 
 O projeto base - exemplo de cliente / servidor - foi desenvolvido em um único pacote.
 
@@ -566,6 +591,10 @@ mutation DELETE_CLIENT {
 }
 ```
 
+<a href="#topo">🔝</a>
+
+---
+
 <h3 id="13">🛰️ Apollo Link / Client / Devtools</h3>
 
 #### ✔️ Instalando o Appolo Link
@@ -574,7 +603,7 @@ mutation DELETE_CLIENT {
 pnpm i apollo-link apollo-link-context apollo-link-error apollo-link-http --filter @dev-demands/web
 ```
 
-Implementando "web/src/plugin/apollo/link.js"
+Implementando "web/src/plugins/apollo/link.js"
 
 #### ✔️ Instalando o Appolo Client
 
@@ -586,4 +615,32 @@ pnpm i apollo-client graphql graphql-tag react-apollo --filter @dev-demands/web
 pnpm i apollo-cache-inmemory --filter @dev-demands/web
 ```
 
-Implementado "web/src/plugins..."
+Implementando "web/src/plugins/apollo/client.js"
+
+Instalando plugin Apollo no Browser.
+
+#### ✔️ Testando o projeto
+
+server
+
+```
+pnpm --filter @dev-demands/server run dev
+```
+
+web
+
+```
+pnpm --filter @dev-demands/web run start
+```
+
+Abrindo a página HOME - devtools Apollo - executar Query & Mutations
+
+<a href="#topo">🔝</a>
+
+---
+
+<h3 id="14">🖥️ Hook - useQuery - Paginação </h3>
+
+Listando clientes ao carregar os componetes React.
+
+...

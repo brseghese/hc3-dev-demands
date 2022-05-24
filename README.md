@@ -27,6 +27,7 @@ O projeto irá controlar as demandas de um programador:
 - <a href="#9">Entendendo o GraphQL</a>
 - <a href="#10">Estruturando os TypeDefs e Resolvers</a>
 - <a href="#11">Introdução a GraphQL Query</a>
+- <a href="#12">Paginação, Ordenação e Filtro</a>
 
 </details>
 
@@ -429,7 +430,7 @@ Inserimos os dados fakes em um arquivo "client.json".
 
 Criando "server/io/Database/createRepository.js"...
 
-#### ✔️ Executando Primeira GraphQL Query
+#### ✔️ Criando Primeira GraphQL Query
 
 http://127.0.0.1:8000/graphql
 
@@ -459,7 +460,16 @@ Listando os clientes por nome:
 ```
 query GET_CLIENTS {
   clients {
-    name
+    items {
+      name
+    }
+    totalItems
   }
 }
 ```
+
+<a href="#topo">🔝</a>
+
+---
+
+<h3 id="12">📑 Paginação, Ordenação e Filtro</h3>

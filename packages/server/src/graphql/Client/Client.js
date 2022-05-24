@@ -11,9 +11,14 @@ export const typeDefs = gql`
     disabled: Boolean!
   }
 
+  type ClientList implements List {
+    items: [Client!]!
+    totalItems: Int!
+  }
+
   extend type Query {
     client(id: ID!): Client
-    clients: [Client!]!
+    clients: ClientList
   }
 `;
 
@@ -25,7 +30,10 @@ export const resolvers = {
     },
     clients: async () => {
       const clients = await clientRepository.read();
-      return clients;
+      return {
+        items: clients,
+        totalItems: clients.length,
+      };
     },
   },
 };

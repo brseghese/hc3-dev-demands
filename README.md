@@ -26,8 +26,7 @@ O projeto irá controlar as demandas de um programador:
 - <a href="#8">Apollo Server</a>
 - <a href="#9">Entendendo o GraphQL</a>
 - <a href="#10">Estruturando os TypeDefs e Resolvers</a>
-- <a href="#11">Introdução a GraphQL Query</a>
-- <a href="#12">Paginação, Ordenação e Filtro</a>
+- <a href="#11">GraphQL Query</a>
 
 </details>
 
@@ -84,7 +83,7 @@ packages:
   - "packages/**"
 ```
 
-O "yaml" é similar ao json, porém mais simples de escrever e específico para arquivo de configuração.
+O "yaml" é similar ao json, ele é mais simples de escrever e específico para arquivo de configuração.
 
 Nomeando "package.json" do server para @dev-demands/server.
 
@@ -102,7 +101,7 @@ Nomeando "package.json" do client para @dev-demands/web.
 pnpm i --filter @dev-demands/server
 ```
 
-O pacote instalado gera o node_modules na pasta server e um pnpm-lock.yaml, com isso podemos rodar o server através do root.
+O pacote instalado gera o node_modules na pasta server e um pnpm-lock.yaml.
 
 #### ✔️​ Executando o Server
 
@@ -138,7 +137,7 @@ pnpm i --filter @dev-demands/web
 pnpm i react-router-dom --filter @dev-demands/web
 ```
 
-Desenvolvendo o react para rodar o client.
+Codificando a interface web.
 
 #### ✔️ Executando o app React
 
@@ -158,8 +157,6 @@ pnpm i express --filter @dev-demands/server
 
 O Express é uma biblioteca para facilitar as requisições com as APIs.
 
-Até então não estávamos tratando os métodos HTTP das requests, somente olhando as URLs.
-
 Codificando o express no "main.js" e deixando a API pronta.
 
 #### ✔️ Executando o server com Express
@@ -168,7 +165,7 @@ Codificando o express no "main.js" e deixando a API pronta.
 pnpm --filter @dev-demands/server run start
 ```
 
-O express já abstrai muito mais coisas do servidor, é muito mais prático trabalhar com ele.
+O express abstrai muito mais coisas do servidor e é muito mais prático para trabalhar.
 
 <a href="#topo">🔝</a>
 
@@ -178,17 +175,19 @@ O express já abstrai muito mais coisas do servidor, é muito mais prático trab
 
 #### ✔️ Implementando o client
 
-O proxímo passo é implementar o client para fazer o authenticate.
+Codificando o client para fazer o authenticate.
 
-Rodando o server na porta 8000 e o client na porta 3000.
+Executando o server na porta 8000 e o client na porta 3000.
 
-Tratando a requisição para o authenticate com `fetch`.
+Tratando a requisição para o authenticate.
 
 #### ✔️ Resolvendo CORS
 
-Para resolver precisamos configurar o server para lidar com as requisições, lidar com os cabeçalhos específicos que os Browsers pedem para validar se os métodos são válidos e se o host (origin) que estamos usando para fazer as requisições são válidas.
+Para resolver precisamos configurar o server para lidar com as requisições.
 
-Para resolver precisamos instalar a biblioteca "cors".
+Lidando com os cabeçalhos específicos que os Browsers pedem para validar se os métodos são válidos e se o host (origin) que estamos usando para fazer as requisições são válidas.
+
+Instalando a biblioteca "cors" resolvemos o CORS.
 
 #### ✔️ Instalando o CORS
 
@@ -196,17 +195,11 @@ Para resolver precisamos instalar a biblioteca "cors".
 pnpm i cors --filter @dev-demands/server
 ```
 
-CORS resolvido com sucesso!
-
 <a href="#topo">🔝</a>
 
 ---
 
 <h3 id="7"> ⚙️ APIs RESTful </h3>
-
-Como vamos falar de GraphQL é importante falar de RESTful que é o cara que vem antes dele.
-
-#### ✔️ Como funciona o RESTful?
 
 - Recebe parâmetros e envia dados usando `JSON` como formato
 - Todas as operações são abstraídas dentro dos métodos HTTP (GET, POST, PUT, PATCH, DELETE e OPTIONS)
@@ -260,7 +253,7 @@ Resumindo os protocolos Http são protocolos de mensagens e não de regras de ne
 
 Apollo Server é uma plataforma / servidor para Node.js que trabalha com GraphQL.
 
-Ele provê uma interface bem elegante para o trabalho.
+Ele provê uma excelente interface para o trabalho.
 
 Nesse projeto usaremos o Apollo Server Express que é uma implementação do Apollo Server Oficial.
 
@@ -270,9 +263,9 @@ Nesse projeto usaremos o Apollo Server Express que é uma implementação do Apo
 pnpm i apollo-server-express --filter @dev-demands/server
 ```
 
-Implementando o Apollo Server em "main.js".
+Codificando o Apollo Server em "main.js".
 
-#### ✔️ Instalando o Nodemon
+Instalando o Nodemon
 
 ```
 pnpm i -D nodemon --filter @dev-demands/server
@@ -282,7 +275,7 @@ O Nodemon reinicia o servidor a cada atualizaçõa.
 
 O -D é porque ele é uma dependência de desenvolvimento, ou seja, não é uma dependência obrigatória para rodar nosso servidor.
 
-#### ✔️ Configurando Nodemon
+Configurando Nodemon
 
 ```
 "dev": "nodemon -r esm .",
@@ -300,9 +293,9 @@ pnpm --filter @dev-demands/server run dev
 
 <h3 id="9"> 🎯 Entendendo o GraphQL</h3>
 
-O **typeDefs** é uma propriedade do apollo server que define o tipo das respostas da API, podemos dizer que significa **o que** vai ser retornado.
+O `TypeDefs` é uma propriedade do apollo server que define o tipo de respostas da API, podemos dizer que significa **o que** vai ser retornado.
 
-O valor que vamos passar para o typeDefs será um gql (função que trabalha com templeta string).
+O valor que vamos passar para o typeDefs será um `gql` (função que trabalha com templeta string).
 
 A sintaxe que vamos usar dentro das crases do gql é uma **sintaxe de GraphQL**.
 
@@ -316,21 +309,19 @@ const server = new ApolloServer({
 });
 ```
 
-Tudo que estamos declarando dentro da template string são graphos.
-
 Os **graphos** são esquemas (possuem dados) e é a partir desse esquema que as queries são executadas e consequentemente validadas, tanto entrada quanto saída.
 
-O mais importante é que podemos fazer as **relações entre os graphos**.
+Podemos fazer as **relações entre os graphos**.
 
-É preciso prover pelo menos um Type Query para poder operar os dados.
+É preciso prover pelo menos um type query para poder operar os dados.
 
-**Type Query** é especificamente utilizado para definir como é feita a consulta.
+`Type Query` é especificamente utilizado para definir como são feitas as consultas.
 
-**Resolvers** são basicamente o **como** as expectativas colocadas nos typeDefs serão resolvidas, devolvendo o dado solicitado.
+`Resolvers` são basicamente o **como** as expectativas colocadas nos typeDefs serão resolvidas, devolvendo o dado solicitado.
 
 O GraphQL possue uma **documentação viva e dinâmica**.
 
-Na API que estamos executando colocando `/graphql` na URL, uma página com toda documentação e outras funcionalidades será disponibilizada.
+Na API que estamos executando colocando `/graphql` na URL, uma página com toda documentação e outras funcionalidades serão disponibilizada.
 
 <a href="#topo">🔝</a>
 
@@ -340,19 +331,11 @@ Na API que estamos executando colocando `/graphql` na URL, uma página com toda 
 
 Um boa maneira de manter a estrutura grapho é separando em camadas / pastas e definindo cada entidade em pasta e arquivo com seus respectivos typeDefs e Resolvers, podendo assim escalar de forma estruturada.
 
-#### ✔️ Importando e Exportando Módulos e Funções
-
-Exportações Explícitas (Named Exports) (Zero ou mais exports por módulo).
-
-Exportações Padrão (Default Exports) (Uma por módulo).
-
-Usaremos Named Exports em typeDefs e resolvers.
-
-#### ✔️ typeDefs e resolvers (globais) & type query (extend)
+#### ✔️ TypeDefs e Resolvers - globais & Type Query - extend
 
 Para fazermos a união dos typeDefs e resolvers criamos os arquivos "typeDefs.js" e "resolvers.js".
 
-O `extend` permite extender o `type query` e adicionar outras queries com facilidade.
+O `extend` permite extender o type query e adicionar outras queries com mais facilidade.
 
 O type query global não pode ser vazio, então implementamos ele com um \_root: String.
 
@@ -376,6 +359,14 @@ const typeDefs = gql`
   ${demandTypeDefs}
 `;
 ```
+
+#### ✔️ Importando e Exportando Módulos e Funções
+
+Exportações Explícitas (Named Exports) (Zero ou mais exports por módulo).
+
+Exportações Padrão (Default Exports) (Uma por módulo).
+
+Usaremos Named Exports em typeDefs e resolvers.
 
 #### ✔️ Shorthand e Rename
 
@@ -418,21 +409,19 @@ server.applyMiddleware({
 
 <h3 id="11">🔎 Introdução a GraphQL Query</h3>
 
-As Query são uma das três principais operações em GraphQL sendo a forma de um client se comunicar com um server GraphQl e obter dados.
+As Query são uma das três principais operações em GraphQL sendo a Query a forma como um client se comunicar com o server GraphQl.
 
 O GraphQL não diz respeito a banco de dados, ele é a camada de ligação entre o front e o back.
 
 #### ✔️ Criando GraphQL Queries
 
-Primeiro vamos gerar dados fakes no site [mockaroo](https://www.mockaroo.com/) para consumir esses dados.
+Gerando dados fakes no site [mockaroo](https://www.mockaroo.com/) para consumir esses dados.
 
-Inserimos os dados fakes em um arquivo "client.json".
+Inserindo os dados fakes em um arquivo "client.json".
 
-Criando "server/io/Database/createRepository.js"...
+Criando "server/io/Database/createRepository.js" e desenvolvendo a ligação entre o arquivo JSON e o GraphQL
 
-#### ✔️ Criando Primeira GraphQL Query
-
-http://127.0.0.1:8000/graphql
+#### ✔️ GraphQL Query
 
 Buscando um cliente pelo id:
 
@@ -445,11 +434,11 @@ query GET_CLIENT($clientID: ID!) {
     disabled
   }
 }
-```
 
-Query Variables
 
-```
+// Query Variables - parâmetro para consulta
+
+
 {
   "clientID": "10b34d77-a60d-4916-8303-964f1e1261a4"
 }
@@ -460,10 +449,10 @@ Listando os clientes por nome:
 ```
 query GET_CLIENTS {
   clients {
+    totalItems
     items {
       name
     }
-    totalItems
   }
 }
 ```
@@ -471,5 +460,3 @@ query GET_CLIENTS {
 <a href="#topo">🔝</a>
 
 ---
-
-<h3 id="12">📑 Paginação, Ordenação e Filtro</h3>

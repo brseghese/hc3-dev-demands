@@ -27,6 +27,7 @@ O projeto irá controlar as demandas de um programador:
 - <a href="#9">Entendendo o GraphQL</a>
 - <a href="#10">Estruturando os TypeDefs e Resolvers</a>
 - <a href="#11">GraphQL Query</a>
+- <a href="#12">GraphQL Mutation</a>
 
 </details>
 
@@ -337,6 +338,8 @@ Para fazermos a união dos typeDefs e resolvers criamos os arquivos "typeDefs.js
 
 O `extend` permite extender o type query e adicionar outras queries com mais facilidade.
 
+#### ✔️ Type Query Global
+
 O type query global não pode ser vazio, então implementamos ele com um \_root: String.
 
 ```
@@ -407,9 +410,9 @@ server.applyMiddleware({
 
 ---
 
-<h3 id="11">🔎 Introdução a GraphQL Query</h3>
+<h3 id="11">🔎 GraphQL Query</h3>
 
-As Query são uma das três principais operações em GraphQL sendo a Query a forma como um client se comunicar com o server GraphQl.
+As Query é uma das três principais operações em GraphQL, elas praticamente assistem os dados e os retornam quando solicitados.
 
 O GraphQL não diz respeito a banco de dados, ele é a camada de ligação entre o front e o back.
 
@@ -419,9 +422,9 @@ Gerando dados fakes no site [mockaroo](https://www.mockaroo.com/) para consumir 
 
 Inserindo os dados fakes em um arquivo "client.json".
 
-Criando "server/io/Database/createRepository.js" e desenvolvendo a ligação entre o arquivo JSON e o GraphQL
+Criando "server/io/Database/createRepository.js" e desenvolvendo a ligação entre o arquivo JSON e o GraphQL.
 
-#### ✔️ GraphQL Query
+#### ✔️ Fazendo as Consultas
 
 Buscando um cliente pelo id:
 
@@ -444,7 +447,7 @@ query GET_CLIENT($clientID: ID!) {
 }
 ```
 
-Listando os clientes por nome:
+Total de clientes e listando os clientes:
 
 ```
 query GET_CLIENTS {
@@ -460,3 +463,69 @@ query GET_CLIENTS {
 <a href="#topo">🔝</a>
 
 ---
+
+<h3 id="12">♻️ GraphQL Mutations</h3>
+
+As Mutations é uma das três principais operações em GraphQL, elas deletam, alteram e incluem dados.
+
+> Observação: o Nodemon está assistindo os dados do "server/data/client.json" e vamos modificar isso para que ele não assista mais os dados.
+
+Em "server/package.json":
+
+```
+"nodemonConfig": {
+    "ignore": [
+      "src/data/*"
+    ]
+```
+
+#### ✔️ Type Mutation Global
+
+O type mutation global não pode ser vazio, então implementamos ele com um \_root: String.
+
+```
+const typeDefs = gql`
+  type Mutation {
+    _root: String
+  }
+`;
+```
+
+Podemos extender a mutation com o global implementado.
+
+#### ✔️ Type Mutation Extend
+
+Criando o input e extendendo a mutation no typeDefs.
+
+O resolvers de query e mutations são iguais, têm os mesmos parâmetros:
+
+- parent
+- args
+- context
+- info
+
+Para criar um novo cliente usaremos somente o parâmetro args.
+
+Para gerar o id vamos utilizar uma biblioteca chamada "uuid".
+
+```
+pnpm i uuid --filter @dev-demands/server
+```
+
+Implementado a mutation no "client.js" e "resolvers.js".
+
+#### ✔️ Inserindo Cliente
+
+```
+mutation {
+  createClient(input:{
+    name: "Bruno Seghese",
+    email: "brsegh@gmail.com"
+  }) {
+    id
+    name
+    email
+    disabled
+  }
+}
+```

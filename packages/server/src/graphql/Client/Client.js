@@ -1,4 +1,6 @@
 import { gql } from "apollo-server-express";
+import * as uuid from "uuid";
+
 import createRepository from "../../../io/Database/createRepository";
 
 const clientRepository = createRepository("client");
@@ -20,6 +22,15 @@ export const typeDefs = gql`
     client(id: ID!): Client
     clients: ClientList
   }
+
+  input CreateClientInput {
+    name: String!
+    email: String!
+  }
+
+  extend type Mutation {
+    createClient(input: CreateClientInput!): Client!
+  }
 `;
 
 export const resolvers = {
@@ -34,6 +45,20 @@ export const resolvers = {
         items: clients,
         totalItems: clients.length,
       };
+    },
+  },
+
+  Mutation: {
+    createClient: async (_, { input }) => {
+      const clients = await clientRepository.read();
+      const client = {
+        id: uuid.v4(),
+        name: input.name,
+        email: input.email,
+        disabled: false,
+      };
+      await clientRepository.write([...clients, client]);
+      return client;
     },
   },
 };

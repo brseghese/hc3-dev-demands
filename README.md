@@ -53,13 +53,14 @@ Instruções para executar o projeto [clique aqui](#✔️-testando-o-projeto)�
 - <a href="#11">GraphQL Query</a>
 - <a href="#12">GraphQL Mutation</a>
 - <a href="#13">Apollo Link / Client / Devtools</a>
-- <a href="#13">Hook - useQuery - Paginação</a>
 
 </details>
 
 ---
 
-<h3 id="1">🚀 Preparando o Ambiente</h3>
+<h2>🚀 Iniciando o Projeto</h2>
+
+<h3 id="1">🧰 Preparando o Ambiente</h3>
 
 O projeto base - exemplo de cliente / servidor - foi desenvolvido em um único pacote.
 
@@ -638,9 +639,3 @@ Abrindo a página HOME - devtools Apollo - executar Query & Mutations
 <a href="#topo">🔝</a>
 
 ---
-
-<h3 id="14">🖥️ Hook - useQuery - Paginação </h3>
-
-Listando clientes ao carregar os componetes React.
-
-...

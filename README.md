@@ -6,12 +6,23 @@ Este projeto faz parte da continuação do curso de GraphQL.
 
 ### 📍 Sobre
 
-O projeto irá controlar as demandas de um programador:
+A implementação deste projeto foi dividido em backend e frontend:
 
-- Criar demandas
-- Criar clientes
-- Ver demandas
-- Ver clientes
+- backend - apollo server
+- frontend - react
+
+No backend foi desenvolvida toda a infraestrutura de dados em GraphQL manipulando um arquivo JSON.
+
+No frontend foi desenvolvida a interface para receber e editar os dados do backend.
+
+Recursos atuais:
+
+- Criar, editar e remover clientes e demandas - backend
+- Listar clientes - backend e frontend
+
+Futuros recursos:
+
+- Criar a regra de negócio entre clientes e demandas.
 
 <h3 id="">📁 Acessar Projeto</h3>
 

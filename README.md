@@ -2,7 +2,9 @@
 
 Este projeto faz parte da continuação do curso de GraphQL.
 
-[Clique aqui](https://github.com/brseghese/vtex-hiring-coders-3/tree/main/d2_graphql)🔗 para acessar o repositório com a introdução do curso onde foi desenvolvido um exemplo de cliente / servidor que é a base deste projeto.
+[Clique aqui](https://github.com/brseghese/hiring-coders-3-vtex-gama/tree/main/d2_graphql)🔗 para acessar o repositório com a introdução do curso onde foi desenvolvido um exemplo de cliente / servidor que é a base deste projeto.
+
+---
 
 ### 📍 Sobre
 
@@ -24,13 +26,15 @@ Futuros recursos:
 
 - Criar a regra de negócio entre clientes e demandas.
 
+---
+
 <h3 id="">📁 Acessar Projeto</h3>
 
-◽ <a href="https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands/tree/main">Acessar</a>🔗 o código fonte pelo GitHub. <br>
-◽ <a href="https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands/archive/refs/heads/main.zip">Download</a>🔗 do código fonte no formato zip.<br>
+◽ <a href="https://github.com/brseghese/hc3-dev-demands/tree/main">Acessar</a>🔗 o código fonte pelo GitHub. <br>
+◽ <a href="https://github.com/brseghese/hc3-dev-demands/archive/refs/heads/main.zip">Download</a>🔗 do código fonte no formato zip.<br>
 ◽ Clonar o repositório ultilizando Git Bash + o comando:
 
-       $ git clone https://github.com/brseghese/vtex-hiring-coders-3-graphql-dev-demands.git
+       git clone https://github.com/brseghese/hc3-dev-demands.git
 
 <h3 id="">🛠️ Instalação</h3>
 
@@ -648,5 +652,29 @@ pnpm --filter @dev-demands/web run start
 Abrindo a página HOME - devtools Apollo - executar Query & Mutations
 
 <a href="#topo">🔝</a>
+
+---
+
+### 📝 License
+
+Esse projeto é licenciado pela MIT License. Veja [aqui](https://pt.wikipedia.org/wiki/Licen%C3%A7a_MIT) mais detalhes.
+
+---
+
+### ✒️ Autor
+
+<a href="https://github.com/brseghese"> <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/80193824?v=4" width="100px;" alt="Personal photo"/> </a>
+
+[Clique aqui](https://brseghese.github.io)🔗 e acesse meu portfólio! 💼 (em construção...)
+
+---
+
+#### 💬 Sinta-se a vontade para entrar em contato
+
+[![Linkedin Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/brunoseghese/) [![Github Badge](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/brseghese) [![Gmail Badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:brseghese@gmail.com)
+
+---
+
+> Desenvolvido com ❤️ por **Bruno Seghese**
 
 ---
